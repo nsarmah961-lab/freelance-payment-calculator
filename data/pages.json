@@ -1,0 +1,314 @@
+
+{
+  "metadata": {
+    "project": "Freelance & International Payment Fee Calculator",
+    "version": "1.0.0",
+    "default_country": "IN",
+    "default_currency": "INR",
+    "default_language": "en",
+    "page_type": "programmatic_seo",
+    "disclaimer": "All calculations are estimates. Actual fees, exchange rates and payouts depend on provider terms and transaction details."
+  },
+  "pages": [
+    {
+      "id": "paypal-vs-wise-india",
+      "slug": "paypal-vs-wise-fee-calculator-india",
+      "title": "PayPal vs Wise Fee Calculator India",
+      "meta_description": "Compare estimated PayPal and Wise fees when receiving international freelance payments in India. Calculate conversion costs and INR payouts.",
+      "h1": "PayPal vs Wise Fee Calculator for India",
+      "intro": "Compare estimated international payment fees and exchange-rate costs from PayPal and Wise when receiving freelance payments in India.",
+      "page_type": "platform_comparison",
+      "calculator_type": "platform_comparison",
+      "platforms": ["paypal", "wise"],
+      "base_currency": "USD",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "PayPal vs Wise India",
+        "PayPal Wise fee calculator",
+        "international payment fees India"
+      ],
+      "faqs": [
+        {
+          "question": "Is Wise cheaper than PayPal for international payments?",
+          "answer": "The total cost depends on transaction fees, currency conversion and payment method. Compare both estimates using the calculator."
+        },
+        {
+          "question": "Can Indian freelancers receive USD payments?",
+          "answer": "Eligible Indian freelancers can receive international payments through supported services, subject to provider requirements and applicable rules."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "upwork-fee-calculator-india",
+      "slug": "upwork-fee-calculator-india",
+      "title": "Upwork Fee Calculator India",
+      "meta_description": "Estimate your Upwork freelancer service fee and calculate your remaining earnings after platform deductions.",
+      "h1": "Upwork Fee Calculator for Indian Freelancers",
+      "intro": "Estimate how much you may keep from an Upwork contract after the freelancer service fee and currency conversion.",
+      "page_type": "platform_calculator",
+      "calculator_type": "single_platform",
+      "platforms": ["upwork"],
+      "base_currency": "USD",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "Upwork fee calculator India",
+        "Upwork freelancer fee",
+        "Upwork earnings calculator"
+      ],
+      "faqs": [
+        {
+          "question": "What service fee does Upwork charge freelancers?",
+          "answer": "Upwork's freelancer service fee currently ranges from 0% to 15%, depending on the contract."
+        },
+        {
+          "question": "Can I calculate Upwork earnings in INR?",
+          "answer": "Yes. Enter your earnings and use the estimated USD to INR exchange rate to calculate an approximate INR value."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "usd-inr-freelance-calculator",
+      "slug": "usd-to-inr-freelance-payment-calculator",
+      "title": "USD to INR Freelance Payment Calculator",
+      "meta_description": "Convert international freelance earnings from USD to INR and estimate payment fees, exchange-rate costs and final payout.",
+      "h1": "USD to INR Freelance Payment Calculator",
+      "intro": "Calculate the estimated Indian rupee value of your international freelance earnings after payment and conversion fees.",
+      "page_type": "currency_calculator",
+      "calculator_type": "currency_conversion",
+      "platforms": ["paypal", "wise", "payoneer", "skydo"],
+      "base_currency": "USD",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "USD to INR freelance calculator",
+        "dollar to rupee payment calculator",
+        "freelancer payment calculator India"
+      ],
+      "faqs": [
+        {
+          "question": "How do I convert USD freelance earnings to INR?",
+          "answer": "Multiply your USD earnings by the applicable exchange rate, then subtract estimated transaction and conversion fees."
+        },
+        {
+          "question": "Does the calculator use live exchange rates?",
+          "answer": "The initial version uses configurable default exchange rates. These should not be treated as live market rates."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "1000-usd-to-inr-after-fees",
+      "slug": "1000-usd-to-inr-after-fees",
+      "title": "$1000 USD to INR After Fees Calculator",
+      "meta_description": "Find out how much $1,000 USD may become in Indian rupees after estimated international payment fees.",
+      "h1": "How Much Is $1,000 USD in INR After Fees?",
+      "intro": "Estimate the INR payout from a $1,000 international freelance payment after platform fees and currency conversion costs.",
+      "page_type": "amount_calculator",
+      "calculator_type": "fixed_amount",
+      "platforms": ["paypal", "wise", "payoneer", "skydo"],
+      "base_currency": "USD",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "1000 USD to INR after fees",
+        "1000 dollars in rupees freelance",
+        "1000 USD payment India"
+      ],
+      "faqs": [
+        {
+          "question": "How much is $1,000 in Indian rupees?",
+          "answer": "The amount depends on the exchange rate used. Enter a rate to calculate the estimated INR value."
+        },
+        {
+          "question": "Will I receive the full converted amount?",
+          "answer": "Not necessarily. Payment processing and currency conversion fees may reduce the final payout."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "payoneer-fee-calculator-india",
+      "slug": "payoneer-fee-calculator-india",
+      "title": "Payoneer Fee Calculator India",
+      "meta_description": "Estimate Payoneer receiving, withdrawal and currency conversion costs for international freelance payments in India.",
+      "h1": "Payoneer Fee Calculator for India",
+      "intro": "Estimate possible Payoneer charges and your approximate INR payout when receiving international freelance earnings.",
+      "page_type": "platform_calculator",
+      "calculator_type": "single_platform",
+      "platforms": ["payoneer"],
+      "base_currency": "USD",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "Payoneer fee calculator India",
+        "Payoneer withdrawal fee India",
+        "Payoneer currency conversion fee"
+      ],
+      "faqs": [
+        {
+          "question": "Does Payoneer charge for currency conversion?",
+          "answer": "Conversion and withdrawal fees depend on the transaction, currencies, account and region."
+        },
+        {
+          "question": "Can Indian freelancers withdraw Payoneer funds to INR?",
+          "answer": "Eligible Indian Payoneer accounts support withdrawals to local bank accounts, subject to account terms."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "skydo-fee-calculator-india",
+      "slug": "skydo-fee-calculator-india",
+      "title": "Skydo Fee Calculator India",
+      "meta_description": "Calculate estimated Skydo flat fees and currency conversion costs for international payments received in India.",
+      "h1": "Skydo Fee Calculator for Indian Freelancers",
+      "intro": "Estimate Skydo payment charges and the approximate INR payout for international freelance payments.",
+      "page_type": "platform_calculator",
+      "calculator_type": "single_platform",
+      "platforms": ["skydo"],
+      "base_currency": "USD",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "Skydo fee calculator",
+        "Skydo charges India",
+        "Skydo international payment fees"
+      ],
+      "faqs": [
+        {
+          "question": "Does Skydo use a currency conversion markup?",
+          "answer": "Skydo advertises conversion at the live exchange rate without an added exchange-rate margin."
+        },
+        {
+          "question": "Are Skydo fees flat?",
+          "answer": "Skydo publishes different pricing tiers based on payment amount. GST may also apply."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "fiverr-fee-calculator",
+      "slug": "fiverr-fee-calculator",
+      "title": "Fiverr Fee Calculator for Freelancers",
+      "meta_description": "Calculate estimated Fiverr deductions and see how much you may earn after the platform's 20% service fee.",
+      "h1": "Fiverr Fee Calculator",
+      "intro": "Calculate estimated Fiverr platform deductions and remaining freelance earnings before withdrawal and conversion charges.",
+      "page_type": "platform_calculator",
+      "calculator_type": "single_platform",
+      "platforms": ["fiverr"],
+      "base_currency": "USD",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "Fiverr fee calculator",
+        "Fiverr earnings calculator",
+        "Fiverr 20 percent fee calculator"
+      ],
+      "faqs": [
+        {
+          "question": "What percentage does Fiverr deduct from freelancer earnings?",
+          "answer": "Fiverr generally credits freelancers with 80% of the order value, before other applicable withdrawal or conversion charges."
+        },
+        {
+          "question": "Does this calculator include withdrawal fees?",
+          "answer": "The initial calculation focuses on the platform deduction. Additional withdrawal and conversion costs should be entered separately when supported."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "international-payment-comparison-india",
+      "slug": "international-payment-calculator-india",
+      "title": "International Payment Fee Calculator India",
+      "meta_description": "Compare estimated international payment fees from multiple services and calculate your final INR payout.",
+      "h1": "International Payment Fee Calculator for India",
+      "intro": "Compare international payment services and estimate how much money reaches your Indian bank account after fees.",
+      "page_type": "multi_platform_calculator",
+      "calculator_type": "platform_comparison",
+      "platforms": ["paypal", "wise", "payoneer", "skydo"],
+      "base_currency": "USD",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "international payment calculator India",
+        "foreign payment charges India",
+        "freelancer payment comparison"
+      ],
+      "faqs": [
+        {
+          "question": "Which payment service is cheapest for Indian freelancers?",
+          "answer": "The cheapest option depends on payment amount, transaction method, conversion rate and provider fees."
+        },
+        {
+          "question": "Can I compare several payment platforms?",
+          "answer": "Yes. Select supported platforms and compare their estimated deductions and final payouts."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "eur-to-inr-freelance-calculator",
+      "slug": "eur-to-inr-freelance-payment-calculator",
+      "title": "EUR to INR Freelance Payment Calculator",
+      "meta_description": "Convert EUR freelance payments to INR and estimate international payment and currency conversion fees.",
+      "h1": "EUR to INR Freelance Payment Calculator",
+      "intro": "Estimate the Indian rupee value of freelance payments received in euros after applicable payment charges.",
+      "page_type": "currency_calculator",
+      "calculator_type": "currency_conversion",
+      "platforms": ["paypal", "wise", "payoneer", "skydo"],
+      "base_currency": "EUR",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "EUR to INR freelance calculator",
+        "euro payment calculator India",
+        "euro to rupee after fees"
+      ],
+      "faqs": [
+        {
+          "question": "How do I convert EUR freelance earnings into INR?",
+          "answer": "Multiply your EUR earnings by the applicable EUR to INR rate and subtract the estimated fees."
+        },
+        {
+          "question": "Are EUR payment fees the same as USD payment fees?",
+          "answer": "No. Fixed charges and conversion costs may differ by currency and payment method."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "gbp-to-inr-freelance-calculator",
+      "slug": "gbp-to-inr-freelance-payment-calculator",
+      "title": "GBP to INR Freelance Payment Calculator",
+      "meta_description": "Estimate GBP to INR freelance earnings after international transfer fees and currency conversion costs.",
+      "h1": "GBP to INR Freelance Payment Calculator",
+      "intro": "Calculate the estimated INR payout from international freelance earnings received in British pounds.",
+      "page_type": "currency_calculator",
+      "calculator_type": "currency_conversion",
+      "platforms": ["paypal", "wise", "payoneer", "skydo"],
+      "base_currency": "GBP",
+      "target_currency": "INR",
+      "default_amount": 1000,
+      "keywords": [
+        "GBP to INR freelance calculator",
+        "pound to rupee payment calculator",
+        "GBP international payment fees India"
+      ],
+      "faqs": [
+        {
+          "question": "How much is GBP freelance income in INR?",
+          "answer": "The INR value depends on the GBP to INR exchange rate and any applicable payment fees."
+        },
+        {
+          "question": "Can I compare payment services for GBP transfers?",
+          "answer": "You can compare supported services using their estimated fee structures and the selected exchange rate."
+        }
+      ],
+      "enabled": true
+    }
+  ]
+}

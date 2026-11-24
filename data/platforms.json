@@ -1,0 +1,112 @@
+
+{
+  "metadata": {
+    "project": "Freelance & International Payment Fee Calculator",
+    "version": "1.0.0",
+    "default_base_currency": "USD",
+    "default_target_currency": "INR",
+    "default_exchange_rates": {
+      "USD_INR": 88.50,
+      "EUR_INR": 102.00,
+      "GBP_INR": 116.00,
+      "AUD_INR": 57.50,
+      "CAD_INR": 64.00
+    },
+    "exchange_rate_note": "Illustrative default rates only. Replace with verified rates before displaying them as current market rates."
+  },
+  "platforms": [
+    {
+      "id": "paypal",
+      "name": "PayPal",
+      "countries_supported": ["IN"],
+      "fee_model": "percentage_plus_fixed",
+      "platform_fee_percent": 4.4,
+      "fixed_fee": 0.30,
+      "fixed_fee_currency": "USD",
+      "fx_markup_percent": 3.5,
+      "withdrawal_fee": 0,
+      "affiliate_url": "",
+      "fee_note": "Illustrative international commercial transaction estimate. Actual fees depend on transaction and account terms.",
+      "enabled": true
+    },
+    {
+      "id": "wise",
+      "name": "Wise",
+      "countries_supported": ["IN", "GLOBAL"],
+      "fee_model": "percentage_range",
+      "platform_fee_percent_min": 0.5,
+      "platform_fee_percent_max": 1.2,
+      "default_fee_percent": 0.85,
+      "fixed_fee": 0,
+      "fx_markup_percent": 0,
+      "withdrawal_fee": 0,
+      "affiliate_url": "",
+      "fee_note": "Estimated transfer fee range. Wise generally uses the mid-market exchange rate, but transfer fees vary by currency and payment method.",
+      "enabled": true
+    },
+    {
+      "id": "payoneer",
+      "name": "Payoneer",
+      "countries_supported": ["IN", "GLOBAL"],
+      "fee_model": "percentage_range",
+      "platform_fee_percent_min": 1.0,
+      "platform_fee_percent_max": 2.0,
+      "default_fee_percent": 1.5,
+      "fixed_fee": 0,
+      "fx_markup_percent": 2.0,
+      "withdrawal_fee": 0,
+      "affiliate_url": "",
+      "fee_note": "Illustrative estimate. Fees depend on payment method, account type, country and currency conversion.",
+      "enabled": true
+    },
+    {
+      "id": "skydo",
+      "name": "Skydo",
+      "countries_supported": ["IN"],
+      "fee_model": "flat_tiered",
+      "tiers": [
+        {
+          "max_transaction_amount": 2000,
+          "fee": 19,
+          "fee_currency": "USD"
+        },
+        {
+          "max_transaction_amount": null,
+          "fee": 29,
+          "fee_currency": "USD"
+        }
+      ],
+      "fx_markup_percent": 0,
+      "fixed_fee": 0,
+      "affiliate_url": "",
+      "fee_note": "Illustrative flat-fee tiers based on the proposed $19/$29 model. Verify actual eligibility and pricing.",
+      "enabled": true
+    },
+    {
+      "id": "upwork",
+      "name": "Upwork",
+      "countries_supported": ["GLOBAL"],
+      "fee_model": "percentage",
+      "platform_fee_percent": 10,
+      "fixed_fee": 0,
+      "fx_markup_percent": 0,
+      "withdrawal_fee": 0,
+      "affiliate_url": "",
+      "fee_note": "Uses the proposed 10% freelancer fee assumption. Actual contract fees may differ.",
+      "enabled": true
+    },
+    {
+      "id": "fiverr",
+      "name": "Fiverr",
+      "countries_supported": ["GLOBAL"],
+      "fee_model": "percentage",
+      "platform_fee_percent": 20,
+      "fixed_fee": 0,
+      "fx_markup_percent": 0,
+      "withdrawal_fee": 0,
+      "affiliate_url": "",
+      "fee_note": "Uses the proposed 20% freelancer earnings deduction assumption. Withdrawal and conversion charges may be additional.",
+      "enabled": true
+    }
+  ]
+}
