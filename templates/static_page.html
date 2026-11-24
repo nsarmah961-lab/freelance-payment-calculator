@@ -1,0 +1,62 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block description %}{{ page.meta_description }}{% endblock %}
+
+{% block content %}
+
+<section class="static-page">
+    <div class="container">
+
+        <article class="static-content">
+
+            <span class="eyebrow">FREELANCE PAYMENT GUIDE</span>
+
+            <h1>{{ page.h1 }}</h1>
+
+            <p class="page-intro">
+                {{ page.intro }}
+            </p>
+
+            {% if page.calculator_type != "none" %}
+            <div class="inline-calculator">
+                <h2>Try the payment calculator</h2>
+
+                <p>
+                    Use our calculator to estimate your
+                    international payment fees.
+                </p>
+
+                <a href="/#calculator" class="primary-link">
+                    Calculate Your Payment
+                </a>
+            </div>
+            {% endif %}
+
+            <section class="article-content">
+                {% block article_content %}
+                {% endblock %}
+            </section>
+
+            {% if page.faqs %}
+            <section class="page-faq">
+                <h2>Frequently Asked Questions</h2>
+
+                {% for faq in page.faqs %}
+                <details>
+                    <summary>{{ faq.question }}</summary>
+                    <p>{{ faq.answer }}</p>
+                </details>
+                {% endfor %}
+
+            </section>
+            {% endif %}
+
+        </article>
+
+    </div>
+</section>
+
+{% endblock %}
