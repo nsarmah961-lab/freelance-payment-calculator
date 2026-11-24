@@ -7,13 +7,12 @@
 
     <title>{% block title %}Freelance Payment Calculator{% endblock %}</title>
 
-    <meta name="description" content="{% block description %}Calculate international freelance payment fees and estimate how much you receive after charges.{% endblock %}">
+    <meta name="description" content="{% block description %}Calculate international freelance payment fees and estimate your earnings.{% endblock %}">
 
     <meta name="robots" content="index, follow">
-
     <meta name="theme-color" content="#101827">
 
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ base_path }}/static/style.css">
 
     {% block head %}{% endblock %}
 </head>
@@ -23,16 +22,16 @@
     <header class="site-header">
         <div class="container header-content">
 
-            <a href="/" class="brand">
+            <a href="{{ base_path }}/" class="brand">
                 <span class="brand-icon">F</span>
                 <span>FreelanceCalc</span>
             </a>
 
             <nav class="main-nav">
-                <a href="/">Home</a>
-                <a href="/#calculator">Calculator</a>
-                <a href="/#platforms">Platforms</a>
-                <a href="/#faq">FAQ</a>
+                <a href="{{ base_path }}/">Home</a>
+                <a href="{{ base_path }}/#calculator">Calculator</a>
+                <a href="{{ base_path }}/#platforms">Platforms</a>
+                <a href="{{ base_path }}/#faq">FAQ</a>
             </nav>
 
         </div>
@@ -55,9 +54,9 @@
                 </div>
 
                 <div class="footer-links">
-                    <a href="/about/">About</a>
-                    <a href="/privacy-policy/">Privacy Policy</a>
-                    <a href="/contact/">Contact</a>
+                    <a href="{{ base_path }}/about/">About</a>
+                    <a href="{{ base_path }}/privacy-policy/">Privacy Policy</a>
+                    <a href="{{ base_path }}/contact/">Contact</a>
                 </div>
             </div>
 
@@ -74,7 +73,14 @@
         </div>
     </footer>
 
-    <script src="/static/calculator.js" defer></script>
+    <script>
+    window.FREELANCECALC_BASE_PATH = {{ base_path|tojson }};
+</script>
+
+  <script>
+    window.FREELANCECALC_BASE_PATH = {{ base_path|tojson }};
+</script>
+<script src="{{ base_path }}/static/calculator.js" defer></script>
 
     {% block scripts %}{% endblock %}
 

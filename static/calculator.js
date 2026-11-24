@@ -1,15 +1,23 @@
 
 /* ==========================================
    FREELANCECALC
-   Payment Calculation Engine
+   Advanced Payment Calculation Engine
+   Version 2.0
    ========================================== */
 
-const DATA_URL = "/data/platforms.json";
+
+/* 1. CONFIGURATION */
+
+const BASE_PATH =
+    window.FREELANCECALC_BASE_PATH || "";
+
+const DATA_URL =
+    `${BASE_PATH}/data/platforms.json`;
 
 let calculatorData = null;
 
 
-/* 1. ELEMENTS */
+/* 2. ELEMENTS */
 
 const amountInput = document.getElementById("amount");
 const fromCurrency = document.getElementById("fromCurrency");
@@ -25,14 +33,17 @@ const conversionFeeElement = document.getElementById("conversionFee");
 const exchangeRateElement = document.getElementById("exchangeRate");
 const finalAmountElement = document.getElementById("finalAmount");
 
+const withdrawalFeeElement =
+    document.getElementById("withdrawalFee");
 
-/* 2. CURRENCY FORMATTING */
+
+/* 3. CURRENCY FORMATTING */
 
 function formatMoney(amount, currency) {
     try {
         return new Intl.NumberFormat("en-IN", {
             style: "currency",
-            currency: currency,
+            currency,
             maximumFractionDigits: 2
         }).format(amount);
     } catch {
@@ -41,42 +52,79 @@ function formatMoney(amount, currency) {
 }
 
 
-/* 3. LOAD PLATFORM DATA */
+/* 4. LOAD PLATFORM DATA */
 
 async function loadCalculatorData() {
+
     try {
+
         const response = await fetch(DATA_URL);
 
         if (!response.ok) {
             throw new Error("Could not load platform data.");
         }
 
-        calculatorData = await response.json();
+        const data = await response.json();
 
         if (
-            !calculatorData.metadata ||
-            !Array.isArray(calculatorData.platforms)
+            !data.metadata ||
+            !Array.isArray(data.platforms)
         ) {
-            throw new Error("Platform data format is invalid.");
+            throw new Error("Invalid platform data.");
         }
+
+        calculatorData = data;
+
+        loadPlatforms();
 
         calculatePayment();
 
     } catch (error) {
+
         console.error(error);
 
         resultDescription.textContent =
-            "Calculator data could not be loaded. Please try again later.";
+            "Calculator data could not be loaded.";
 
         calculateBtn.disabled = true;
-        calculateBtn.textContent = "Calculator unavailable";
+
+        calculateBtn.textContent =
+            "Calculator unavailable";
     }
 }
 
 
-/* 4. GET EXCHANGE RATE */
+/* 5. LOAD PLATFORMS DYNAMICALLY */
+
+function loadPlatforms() {
+
+    platformSelect.innerHTML = "";
+
+    const enabledPlatforms =
+        calculatorData.platforms.filter(platform => {
+            return platform.enabled !== false;
+        });
+
+    enabledPlatforms.forEach(platform => {
+
+        const option = document.createElement("option");
+
+        option.value = platform.id;
+        option.textContent = platform.name;
+
+        platformSelect.appendChild(option);
+    });
+
+    if (enabledPlatforms.length === 0) {
+        throw new Error("No payment platforms are available.");
+    }
+}
+
+
+/* 6. EXCHANGE RATE ENGINE */
 
 function getRate(currency) {
+
     const rates =
         calculatorData.metadata.default_exchange_rates;
 
@@ -84,9 +132,9 @@ function getRate(currency) {
         return 1;
     }
 
-    const rate = rates[currency + "_INR"];
+    const rate = Number(rates[currency + "_INR"]);
 
-    if (!rate || rate <= 0) {
+    if (!Number.isFinite(rate) || rate <= 0) {
         throw new Error(
             "Exchange rate unavailable for " + currency
         );
@@ -96,9 +144,12 @@ function getRate(currency) {
 }
 
 
-/* 5. CONVERT BETWEEN CURRENCIES */
-
 function convertCurrency(amount, from, to) {
+
+    if (from === to) {
+        return amount;
+    }
+
     const fromRate = getRate(from);
     const toRate = getRate(to);
 
@@ -106,18 +157,38 @@ function convertCurrency(amount, from, to) {
 }
 
 
-/* 6. FIND SELECTED PLATFORM */
+/* 7. GET SELECTED PLATFORM */
 
 function getSelectedPlatform() {
+
     return calculatorData.platforms.find(platform => {
         return platform.id === platformSelect.value;
     });
 }
 
 
-/* 7. CALCULATE PLATFORM FEE */
+/* 8. VALIDATE FEE VALUES */
 
-function calculatePlatformFee(amount, currency, platform) {
+function validateFee(value, label) {
+
+    const number = Number(value);
+
+    if (!Number.isFinite(number) || number < 0) {
+        throw new Error("Invalid " + label + " configuration.");
+    }
+
+    return number;
+}
+
+
+/* 9. CALCULATE PLATFORM FEE */
+
+function calculatePlatformFee(
+    amount,
+    currency,
+    platform,
+    rangeType = "default"
+) {
 
     const model = platform.fee_model;
 
@@ -126,24 +197,32 @@ function calculatePlatformFee(amount, currency, platform) {
     /* Percentage fee */
 
     if (model === "percentage") {
-        fee =
-            amount *
-            (Number(platform.platform_fee_percent) / 100);
+
+        const percentage = validateFee(
+            platform.platform_fee_percent,
+            "platform percentage"
+        );
+
+        fee = amount * percentage / 100;
     }
 
     /* Percentage + fixed fee */
 
     else if (model === "percentage_plus_fixed") {
 
+        const percentage = validateFee(
+            platform.platform_fee_percent,
+            "platform percentage"
+        );
+
         const percentageFee =
-            amount *
-            (Number(platform.platform_fee_percent) / 100);
+            amount * percentage / 100;
 
         const fixedCurrency =
             platform.fixed_fee_currency || currency;
 
         const fixedFee = convertCurrency(
-            Number(platform.fixed_fee || 0),
+            validateFee(platform.fixed_fee || 0, "fixed fee"),
             fixedCurrency,
             currency
         );
@@ -155,13 +234,33 @@ function calculatePlatformFee(amount, currency, platform) {
 
     else if (model === "percentage_range") {
 
-        const percentage =
-            Number(platform.default_fee_percent);
+        let percentage;
 
-        fee = amount * (percentage / 100);
+        if (rangeType === "min") {
+            percentage = platform.platform_fee_percent_min;
+        }
+
+        else if (rangeType === "max") {
+            percentage = platform.platform_fee_percent_max;
+        }
+
+        else {
+            percentage = platform.default_fee_percent;
+        }
+
+        percentage = validateFee(
+            percentage,
+            "percentage range"
+        );
+
+        if (percentage > 100) {
+            throw new Error("Invalid platform fee percentage.");
+        }
+
+        fee = amount * percentage / 100;
     }
 
-    /* Flat or tiered fee */
+    /* Flat tiered fee */
 
     else if (model === "flat_tiered") {
 
@@ -184,13 +283,11 @@ function calculatePlatformFee(amount, currency, platform) {
         });
 
         if (!selectedTier) {
-            throw new Error(
-                "No matching fee tier found for this payment."
-            );
+            throw new Error("No matching fee tier found.");
         }
 
         fee = convertCurrency(
-            Number(selectedTier.fee),
+            validateFee(selectedTier.fee, "tier fee"),
             selectedTier.fee_currency || currency,
             currency
         );
@@ -202,15 +299,31 @@ function calculatePlatformFee(amount, currency, platform) {
         );
     }
 
-    if (!Number.isFinite(fee) || fee < 0) {
-        throw new Error("Invalid platform fee configuration.");
-    }
-
     return fee;
 }
 
 
-/* 8. MAIN CALCULATION */
+/* 10. WITHDRAWAL FEE */
+
+function calculateWithdrawalFee(platform, targetCurrency) {
+
+    const fee = validateFee(
+        platform.withdrawal_fee || 0,
+        "withdrawal fee"
+    );
+
+    const feeCurrency =
+        platform.withdrawal_fee_currency || targetCurrency;
+
+    return convertCurrency(
+        fee,
+        feeCurrency,
+        targetCurrency
+    );
+}
+
+
+/* 11. MAIN CALCULATION */
 
 function calculatePayment() {
 
@@ -231,17 +344,22 @@ function calculatePayment() {
 
         if (!Number.isFinite(amount) || amount <= 0) {
             throw new Error(
-                "Please enter a payment amount greater than zero."
+                "Enter a payment amount greater than zero."
             );
         }
 
         if (!platform || platform.enabled === false) {
             throw new Error(
-                "Please select an available payment platform."
+                "Please select an available platform."
             );
         }
 
-        /* Calculate platform fee */
+        /* Validate currency rates */
+
+        getRate(baseCurrency);
+        getRate(targetCurrency);
+
+        /* Platform fee */
 
         const platformFee = calculatePlatformFee(
             amount,
@@ -251,22 +369,22 @@ function calculatePayment() {
 
         if (platformFee > amount) {
             throw new Error(
-                "The estimated platform fee exceeds your payment amount."
+                "Platform fee exceeds the payment amount."
             );
         }
-
-        /* Remaining amount */
 
         const amountAfterPlatformFee =
             amount - platformFee;
 
-        /* FX markup */
+        /* Exchange rate */
 
-        const fxMarkup =
-            Number(platform.fx_markup_percent || 0);
+        const fxMarkup = validateFee(
+            platform.fx_markup_percent || 0,
+            "FX markup"
+        );
 
-        if (!Number.isFinite(fxMarkup) || fxMarkup < 0 || fxMarkup >= 100) {
-            throw new Error("Invalid FX markup configuration.");
+        if (fxMarkup >= 100) {
+            throw new Error("Invalid FX markup.");
         }
 
         const grossExchangeRate = convertCurrency(
@@ -284,12 +402,68 @@ function calculatePayment() {
             amountAfterPlatformFee * grossExchangeRate;
 
         const conversionFee =
-            amountBeforeFX * (fxMarkup / 100);
+            amountBeforeFX * fxMarkup / 100;
 
-        const finalAmount =
+        const amountAfterConversion =
             amountBeforeFX - conversionFee;
 
-        /* Display results */
+        /* Withdrawal fee */
+
+        const withdrawalFee = calculateWithdrawalFee(
+            platform,
+            targetCurrency
+        );
+
+        if (withdrawalFee > amountAfterConversion) {
+            throw new Error(
+                "Withdrawal fee exceeds the converted amount."
+            );
+        }
+
+        const finalAmount =
+            amountAfterConversion - withdrawalFee;
+
+        /* Calculate fee range */
+
+        let rangeDescription = "";
+
+        if (platform.fee_model === "percentage_range") {
+
+            const minimumFee = calculatePlatformFee(
+                amount,
+                baseCurrency,
+                platform,
+                "min"
+            );
+
+            const maximumFee = calculatePlatformFee(
+                amount,
+                baseCurrency,
+                platform,
+                "max"
+            );
+
+            const minimumReceived =
+                (amount - maximumFee) *
+                grossExchangeRate *
+                (1 - fxMarkup / 100) -
+                withdrawalFee;
+
+            const maximumReceived =
+                (amount - minimumFee) *
+                grossExchangeRate *
+                (1 - fxMarkup / 100) -
+                withdrawalFee;
+
+            rangeDescription =
+                " Estimated receipt range: " +
+                formatMoney(minimumReceived, targetCurrency) +
+                " – " +
+                formatMoney(maximumReceived, targetCurrency) +
+                ".";
+        }
+
+        /* DISPLAY RESULTS */
 
         receivedAmount.textContent =
             formatMoney(finalAmount, targetCurrency);
@@ -311,12 +485,20 @@ function calculatePayment() {
         finalAmountElement.textContent =
             formatMoney(finalAmount, targetCurrency);
 
+        if (withdrawalFeeElement) {
+            withdrawalFeeElement.textContent =
+                formatMoney(withdrawalFee, targetCurrency);
+        }
+
         resultDescription.textContent =
             "Estimated result using " +
             platform.name +
-            " fee assumptions.";
+            "." +
+            rangeDescription;
 
     } catch (error) {
+
+        console.error(error);
 
         receivedAmount.textContent = "—";
 
@@ -326,13 +508,17 @@ function calculatePayment() {
         exchangeRateElement.textContent = "—";
         finalAmountElement.textContent = "—";
 
-        resultDescription.textContent = error.message;
+        if (withdrawalFeeElement) {
+            withdrawalFeeElement.textContent = "—";
+        }
 
+        resultDescription.textContent =
+            error.message;
     }
 }
 
 
-/* 9. EVENT LISTENERS */
+/* 12. EVENT LISTENERS */
 
 if (calculateBtn) {
     calculateBtn.addEventListener(
@@ -370,14 +556,21 @@ if (platformSelect) {
 }
 
 
-/* 10. START CALCULATOR */
+/* 13. START ENGINE */
 
 if (
     amountInput &&
     fromCurrency &&
     toCurrency &&
     platformSelect &&
-    calculateBtn
+    calculateBtn &&
+    receivedAmount &&
+    resultDescription &&
+    originalAmount &&
+    platformFeeElement &&
+    conversionFeeElement &&
+    exchangeRateElement &&
+    finalAmountElement
 ) {
     loadCalculatorData();
 }
