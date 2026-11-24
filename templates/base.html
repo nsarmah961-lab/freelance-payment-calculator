@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Freelance Payment Calculator{% endblock %}</title>
+
+    <meta name="description" content="{% block description %}Calculate international freelance payment fees and estimate how much you receive after charges.{% endblock %}">
+
+    <meta name="robots" content="index, follow">
+
+    <meta name="theme-color" content="#101827">
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container header-content">
+
+            <a href="/" class="brand">
+                <span class="brand-icon">F</span>
+                <span>FreelanceCalc</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="/">Home</a>
+                <a href="/#calculator">Calculator</a>
+                <a href="/#platforms">Platforms</a>
+                <a href="/#faq">FAQ</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+
+            <div class="footer-content">
+                <div>
+                    <h3>FreelanceCalc</h3>
+                    <p>
+                        Understand international payment fees.
+                        Calculate smarter. Keep more of your earnings.
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <a href="/about/">About</a>
+                    <a href="/privacy-policy/">Privacy Policy</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+            </div>
+
+            <p class="disclaimer">
+                Calculations are estimates, not guaranteed quotes.
+                Actual fees and exchange rates may vary by provider,
+                country, account and transaction type.
+            </p>
+
+            <p class="copyright">
+                © 2026 FreelanceCalc. All rights reserved.
+            </p>
+
+        </div>
+    </footer>
+
+    <script src="/static/calculator.js" defer></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>
