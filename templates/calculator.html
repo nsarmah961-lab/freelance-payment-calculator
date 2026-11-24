@@ -1,0 +1,222 @@
+
+{% extends "base.html" %}
+
+{% block title %}Freelance Payment Fee Calculator | Compare Payment Platforms{% endblock %}
+
+{% block description %}
+Calculate international freelance payment fees. Compare PayPal, Wise, Payoneer, Skydo, Upwork and Fiverr to estimate your final earnings.
+{% endblock %}
+
+{% block content %}
+
+<section class="calculator-hero">
+    <div class="container">
+
+        <div class="hero-heading">
+            <span class="eyebrow">SMART PAYMENT ESTIMATOR</span>
+
+            <h1>Calculate Your Freelance Payment Fees</h1>
+
+            <p>
+                Find out how much you actually receive after
+                international payment fees and currency conversion.
+            </p>
+        </div>
+
+        <div class="calculator-layout" id="calculator">
+
+            <div class="calculator-card">
+
+                <h2>Payment details</h2>
+
+                <div class="form-group">
+                    <label for="amount">Payment amount</label>
+
+                    <input
+                        type="number"
+                        id="amount"
+                        placeholder="Enter amount"
+                        min="0"
+                        step="0.01"
+                        value="1000"
+                    >
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="fromCurrency">Sending currency</label>
+
+                        <select id="fromCurrency">
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                            <option value="AUD">AUD ($)</option>
+                            <option value="CAD">CAD ($)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="toCurrency">Receiving currency</label>
+
+                        <select id="toCurrency">
+                            <option value="INR">INR (₹)</option>
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="platform">Payment platform</label>
+
+                    <select id="platform">
+                        <option value="paypal">PayPal India</option>
+                        <option value="wise">Wise</option>
+                        <option value="payoneer">Payoneer</option>
+                        <option value="skydo">Skydo</option>
+                        <option value="upwork">Upwork</option>
+                        <option value="fiverr">Fiverr</option>
+                    </select>
+                </div>
+
+                <button type="button" id="calculateBtn">
+                    Calculate Payment
+                </button>
+
+                <p class="form-note">
+                    Results are estimates based on configured fee assumptions.
+                </p>
+
+            </div>
+
+            <div class="result-card" id="result">
+
+                <span class="result-label">YOUR ESTIMATED RECEIPT</span>
+
+                <h2 id="receivedAmount">₹0.00</h2>
+
+                <p id="resultDescription">
+                    Enter your payment details to calculate your earnings.
+                </p>
+
+                <div class="result-divider"></div>
+
+                <div class="result-row">
+                    <span>Original payment</span>
+                    <strong id="originalAmount">—</strong>
+                </div>
+
+                <div class="result-row">
+                    <span>Estimated platform fee</span>
+                    <strong id="platformFee">—</strong>
+                </div>
+
+                <div class="result-row">
+                    <span>Estimated conversion fee</span>
+                    <strong id="conversionFee">—</strong>
+                </div>
+
+                <div class="result-row">
+                    <span>Estimated exchange rate</span>
+                    <strong id="exchangeRate">—</strong>
+                </div>
+
+                <div class="result-divider"></div>
+
+                <div class="result-row final-row">
+                    <span>Estimated amount received</span>
+                    <strong id="finalAmount">—</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="platform-section" id="platforms">
+    <div class="container">
+
+        <h2>Compare payment platforms</h2>
+
+        <p>
+            Explore different payment services and understand
+            how their fees can affect your earnings.
+        </p>
+
+        <div class="platform-grid">
+
+            <article class="platform-card">
+                <h3>PayPal</h3>
+                <p>International payment processing and currency conversion.</p>
+            </article>
+
+            <article class="platform-card">
+                <h3>Wise</h3>
+                <p>International transfers with transparent fee estimates.</p>
+            </article>
+
+            <article class="platform-card">
+                <h3>Payoneer</h3>
+                <p>Payment solutions for freelancers and businesses.</p>
+            </article>
+
+            <article class="platform-card">
+                <h3>Skydo</h3>
+                <p>International payment collection for Indian exporters.</p>
+            </article>
+
+            <article class="platform-card">
+                <h3>Upwork</h3>
+                <p>Freelance marketplace service fee estimates.</p>
+            </article>
+
+            <article class="platform-card">
+                <h3>Fiverr</h3>
+                <p>Freelance marketplace earnings calculations.</p>
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="calculator-faq" id="faq">
+    <div class="container">
+
+        <h2>Frequently asked questions</h2>
+
+        <details>
+            <summary>How are payment fees calculated?</summary>
+            <p>
+                The calculator applies configured platform fee
+                assumptions and currency conversion estimates
+                to your entered payment amount.
+            </p>
+        </details>
+
+        <details>
+            <summary>Are the results exact?</summary>
+            <p>
+                No. Actual fees and exchange rates can vary
+                depending on the payment provider, account,
+                transaction type and country.
+            </p>
+        </details>
+
+        <details>
+            <summary>Can I compare different payment platforms?</summary>
+            <p>
+                Yes. Select a different platform and calculate
+                again to compare estimated results.
+            </p>
+        </details>
+
+    </div>
+</section>
+
+{% endblock %}
